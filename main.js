@@ -1,16 +1,20 @@
 const loadUserData = new APIManager()
-const displayUser = new Renderer(upl)
+const displayUsers = new Renderer()
 
 
 const loadUserFunction = function (){
    loadUserData.get7User()
    loadUserData.getQuote()
-   loadUserData.getpokemon()
+   loadUserData.getnewPokemon()
    loadUserData.randomText()   
 }
 
 const displayUserFunction = function (){
    //displayUser.
+   displayUsers.userRenderer(loadUserData.data)
+   displayUsers.quoteRenderer(loadUserData.data)
+   displayUsers.aboutMeRenderer(loadUserData.data)
+   displayUsers.pokemonRenderer(loadUserData.data)
 }  
-$(".buttons:first-child").on("click",loadUserFunction);
-$(".buttons:last-child").on("click",displayUserFunction);
+$("#load").on("click",loadUserFunction);
+$("#display").on("click",displayUserFunction);

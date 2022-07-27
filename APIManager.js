@@ -1,5 +1,19 @@
 //This is the class that will manage all your APIs
-const displayUser = function(data) {
+
+class APIManager {
+    constructor() {
+        this.data = {}
+		this.newPokemon=1
+		this.pokemonUrl=""
+    }
+
+   
+  get7User = function(){
+    let api=this 
+    $.ajax({
+        method: "GET",
+        url: 'https://randomuser.me/api/?results=7',
+        success:  function(data) {
           let user = {
           firstName : data.results[0].name.first, 
           lastName : data.results[0].name.last,
@@ -10,24 +24,12 @@ const displayUser = function(data) {
          
           let users =[]
           for (let user of data.results) {
-            users.push(user.name.first + user.name.last +user.location.state +user.location.city+user.picture.medium)
+          users.push({'firstName': user.name.first ,'lastName':user.name.last})
           }
-          console.log(users)
-    }
-
-class APIManager {
-    constructor() {
-        this.data = {}
-    }
-
-   
-  get7User = function(){
-          
-      
-    $.ajax({
-        method: "GET",
-        url: 'https://randomuser.me/api/?results=7',
-        success: displayUser,
+		  api.data.user=user
+		  api.data.users=users
+     //     console.log(users)
+    },
         error: function (xhr, text, error) {
             alert(text);
         }
@@ -35,12 +37,13 @@ class APIManager {
   }
 
   getQuote = function(){
-          
+    let api =this
+
     $.ajax({
      method: "GET",
      url: 'https://api.kanye.rest/',
      success: function (data) {
-         console.log(data["quote"]);
+         api.data.quote=data["quote"];
      },
      error: function (xhr, text, error) {
          console.log(text);
@@ -50,27 +53,54 @@ class APIManager {
    }
    
    
-    getpokemon = function(){
-            
-      $.ajax({
-       method: "GET",
-       url: 'https://pokeapi.co/api/v2/pokemon/?limit=1',
-       success: function (data) {
-           console.log(data)
-       },
-       error: function (xhr, text, error) {
-           console.log(" ");
-       }
-       }); 
-     
-     }
+    getnewPokemon=function()
+    {
+    let api=this
+        $.ajax(
+            {
+                method: "GET",
+                
+                url:  `https://pokeapi.co/api/v2/pokemon/?offset=${api.newPokemon++}&limit=1`,
+                success: function (data) {
+					      api.getPokemon()
+                     api.data.pokemon={}
+                    api.data.pokemon.name=data.results[0].name 
+                     api.data.pokemonUrl=data.results[0].url 
+                   //  api.getPokemon()
+                },
+                error: function (xhr, text, error) {
+                    console.log(text)
+                }
+            })
+        
+    }
+    //4 PIC
+    getPokemon=function()
+    {
+    let api=this.data
+        $.ajax(
+            {
+                method: "GET",
+                
+                url: api.pokemonUrl,
+                success: function (data) {
+                  api.pokemon.img=data.sprites.back_default  
+                },
+                error: function (xhr, text, error) {
+                    console.log(text)
+                }
+            })
+        
+    }
   
       randomText = function(){
-            
+        let  api=this  
       $.ajax({
        method: "GET",
        url: 'https://baconipsum.com/api/?type=meat-and-filler',
        success: function (data) {
+		   api.data.aboutme=[]
+		   api.data.aboutme=data
            console.log(data)
        },
        error: function (xhr, text, error) {
@@ -82,7 +112,9 @@ class APIManager {
    
 }
 
-const test = new APIManager()
+
+
+/*const test = new APIManager()
 test.getQuote()
 test.get7User()
-test.getpokemon()
+test.getpokemon()*/

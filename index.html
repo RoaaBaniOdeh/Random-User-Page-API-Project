@@ -8,63 +8,37 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
-
+​
 </head>
-
+​
 <body>
-
-
+​
+​
     <script id="chosenUser-template" type="text/x-handlebars-template">
         <div>
-            <img src={{picture.medium}}>
-            <div>{{name.first}} +" "+ {{name.last}}</div>
-            <div>{{location.state}} +"-"+ {{location.city}}</div>
+            <img src={{PICTURE}}  id="profile-pic">
+            <div class="user-info"  >{{firstName}}  {{lastName}}</div>
+            <div >{{locationState}},{{locationCity}}</div>
          </div>    
          
-  <script id="quote-template" type="text/x-handlebars-template">
-    <p>Faviourte quote</p>    
-    <div>{{text}}</div>   
-    <p> Kanye West</p>
+  <script id="q2uote-template" type="text/x-handlebars-template" >
+
     </script>
-
-    <script id="pokemon-template" type="text/x-handlebars-template">
-        <img src={{spirtes.medium}}>
-        <p>Favorite pokemon </p>    
-        <div>{{results.name}}</div>   
-      
-        </script>
-        <script id="aboutMe-template" type="text/x-handlebars-template">
-            <img src={{spirtes.medium}}>
-            <p>Favorite pokemon </p>    
-            <div>{{results.name}}</div>   
-          
-            </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+​<script id="Pokemon-template" type="text/x-handlebars-template">
+  <img src='{{pokemon.img}}' id='pokemon-image'  />
+  <div id='pokemon-text'>Favorite Pokemon : {{pokemon.name}}</div>
+</script>
+<script id="quote-template" type="text/x-handlebars-template">
+  <p>Favorite quote:</p>
+  {{quote}}
+  <p> Kanye West</p>
+</script>
+​
     <div class="container">	
         <div class="user-container"></div>	
         <div class="quote-container"></div>	
         <div class="content-container">	
-            <div class="pokemon-container"></div>	
+            <div class="pokemon-container" ></div>	
             <div class="meat-container"></div>	
         </div>	
         <div class="friends">	
@@ -73,91 +47,45 @@
             </div>	
         </div>	
         <div class="buttons">	
-            <button>Load User Data</button>	
-            <button>Display User</button>	
+            <button id="load">Load User Data</button>	
+            <button id="display">Display User</button>	
         </div>	
     </div>
-
-    
-
-
-
-    <script id="Quote-template" type="text/x-handlebars-template">
-        <p>Favorite quote:</p>
-        {{text}}
-      </script>
-      <script id="Pokemon-template" type="text/x-handlebars-template">
-        <img src={{results.sprites.front_default}} id='pokemon-image' alt='' />
-        <div id='pokemon-text'>Favorite Pokemon : {{results.name}}</div>
-      </script>
-      <script id="About-template" type="text/x-handlebars-template">
-  
-  
-        About me :
-        <div class='meat-text'>
-          {{results}}
-        </div>
-      </script>
-      <script id="Friends-template" type="text/x-handlebars-template">
-        <ul>
-          {{#each elements}}
-            <li>{{name.first}} {{name.last}}</li>
-          {{/each}}
-        </ul>
-      </script>
-      <script id="User-template" type="text/x-handlebars-template">
-        <img src='{{picture.large}}' alt='{{name.first}}' id='profile-pic' />
-        <div class='user-info'>
-          <p>{{name.first}} {{name.last}}</p>
-          <p>{{location.city}} {{location.state}}</p>
-        </div>
-      </script>
+​
+   
 
 
+<script id="About-template" type="text/x-handlebars-template">
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  About me :
+  <div class='meat-text'>
+    {{aboutme}}
+  </div>
+</script>
+<script id="Friends-template" type="text/x-handlebars-template">
+  <ul>
+    {{#each users}}
+      <li>{{firstName}} {{lastName}}</li>
+    {{/each}}
+  </ul>
+</script>
+<script id="User-template" type="text/x-handlebars-template">
+  <img src='{{picture.large}}' alt='{{name.first}}' id='profile-pic' />
+  <div class='user-info'>
+    <p>{{name.first}} {{name.last}}</p>
+    <p>{{location.city}} {{location.state}}</p>
+  </div>
+</script>
+​
+​
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.js"></script>
  <script src="jquery-3.6.0.js"></script>
  <script src="APIManager.js"></script>
  <script src="Renderer.js"></script>
       <script src="main.js"></script>
  
-
+​
 </body>
-
+​
 </html>
